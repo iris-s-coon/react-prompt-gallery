@@ -1,20 +1,43 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# React プロンプトギャラリー
 
-# Run and deploy your AI Studio app
+このプロジェクトは、生成AI（Google Gemini）で使用できる様々なプロンプトを閲覧し、実際に試すことができるウェブアプリケーションです。ReactとTypeScriptで構築されています。
 
-This contains everything you need to run your app locally.
+## ✨ 主な機能
 
-View your app in AI Studio: https://ai.studio/apps/drive/1gEwwIGOULeIeu4cIKvnRa0m0Sy3Ec2fC
+- **プロンプトの閲覧**: 「クリエイティブ」「コーディング」「マーケティング」など、カテゴリ別に整理されたプロンプトを一覧できます。
+- **プロンプトのコピー**: 気に入ったプロンプトをワンクリックでクリップボードにコピーできます。
+- **コンテンツ生成**: プロンプトを選択し、「✨ 生成する」ボタンを押すことで、Gemini APIを介してリアルタイムでコンテンツを生成し、結果を確認できます。
+- **レスポンシブデザイン**: デスクトップでもモバイルでも快適に利用できます。
 
-## Run Locally
+## 🛠️ 使用技術
 
-**Prerequisites:**  Node.js
+- **フロントエンド**: [React](https://react.dev/), [TypeScript](https://www.typescriptlang.org/)
+- **AIモデル**: [Google Gemini API (`@google/genai`)](https://www.npmjs.com/package/@google/genai)
+- **フォント**: [Kaisei Tokumin (Google Fonts)](https://fonts.google.com/specimen/Kaisei+Tokumin)
 
+## 🚀 セットアップ方法
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+### 1. APIキーの準備
+
+このアプリケーションを実行するには、Google AI StudioでAPIキーを取得する必要があります。
+
+1.  [Google AI Studio](https://aistudio.google.com/)にアクセスします。
+2.  「Get API key」をクリックして、新しいAPIキーを作成します。
+3.  取得したAPIキーを安全な場所に保管してください。
+
+### 2. 環境変数の設定
+
+アプリケーションは環境変数 `API_KEY` からAPIキーを読み込みます。プロジェクトを実行する環境で、この環境変数を設定してください。
+
+**重要**: このアプリケーションは、`process.env.API_KEY` という形でコード内から直接APIキーを読み込みます。お使いの実行環境（Vercel, Netlify, ローカル開発環境など）で環境変数が正しく設定されていることを確認してください。
+
+### 3. アプリケーションの実行
+
+このプロジェクトは、ビルドステップなしでブラウザで直接実行できるように構成されています。
+
+1.  プロジェクトファイルをダウンロードします。
+2.  `index.html` ファイルをウェブサーバーでホスティングするか、ローカルのファイルとしてブラウザで開きます。（API通信を行うため、ローカルサーバーでの実行を推奨します）
+
+## 🎨 デザイン
+
+UIは日本語で、可読性の高い明朝体のフォント「Kaisei Tokumin」を使用しており、シンプルで直感的な操作が可能です。

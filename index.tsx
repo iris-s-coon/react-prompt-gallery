@@ -4,14 +4,14 @@ import { GoogleGenAI, GenerateContentResponse } from '@google/genai';
 
 // --- DATA ---
 const prompts = [
-  { id: 1, category: 'Creative', title: 'Story Starter', prompt: 'Write a short story beginning with the line: "The last thing I expected to see in my coffee was a tiny, swimming dragon."' },
-  { id: 2, category: 'Coding', title: 'Regex Helper', prompt: 'Generate a regular expression that validates an email address according to RFC 5322.' },
-  { id: 3, category: 'Marketing', title: 'Ad Copy', prompt: 'Write three compelling headlines for a new brand of eco-friendly sneakers.' },
-  { id: 4, category: 'Fun', title: 'Movie Pitch', prompt: 'Pitch a movie about a group of squirrels who pull off a heist to steal the world\'s largest acorn.' },
-  { id: 5, category: 'Creative', title: 'Poetry Prompt', prompt: 'Write a haiku about the feeling of a city street after a rainstorm.' },
-  { id: 6, category: 'Productivity', title: 'Email Assistant', prompt: 'Draft a polite but firm follow-up email to a colleague who has not responded to a request from three days ago.' },
-  { id: 7, category: 'Coding', title: 'Code Explainer', prompt: 'Explain the concept of recursion in simple terms, using a real-world analogy. Provide a simple code example in Python.' },
-  { id: 8, category: 'Marketing', title: 'Social Media Post', prompt: 'Create a short, engaging tweet to announce a 24-hour flash sale for a coffee shop.' },
+  { id: 1, category: 'クリエイティブ', title: '物語の始まり', prompt: 'Write a short story beginning with the line: "The last thing I expected to see in my coffee was a tiny, swimming dragon."' },
+  { id: 2, category: 'コーディング', title: '正規表現ヘルパー', prompt: 'Generate a regular expression that validates an email address according to RFC 5322.' },
+  { id: 3, category: 'マーケティング', title: '広告コピー', prompt: 'Write three compelling headlines for a new brand of eco-friendly sneakers.' },
+  { id: 4, category: '楽しい', title: '映画の企画', prompt: 'Pitch a movie about a group of squirrels who pull off a heist to steal the world\'s largest acorn.' },
+  { id: 5, category: 'クリエイティブ', title: '詩のプロンプト', prompt: 'Write a haiku about the feeling of a city street after a rainstorm.' },
+  { id: 6, category: '生産性', title: 'メールアシスタント', prompt: 'Draft a polite but firm follow-up email to a colleague who has not responded to a request from three days ago.' },
+  { id: 7, category: 'コーディング', title: 'コード解説', prompt: 'Explain the concept of recursion in simple terms, using a real-world analogy. Provide a simple code example in Python.' },
+  { id: 8, category: 'マーケティング', title: 'SNS投稿', prompt: 'Create a short, engaging tweet to announce a 24-hour flash sale for a coffee shop.' },
 ];
 
 type Prompt = typeof prompts[0];
@@ -30,15 +30,15 @@ const BackIcon = () => (
 const App: React.FC = () => {
     const [view, setView] = useState<'gallery' | 'generator'>('gallery');
     const [selectedPrompt, setSelectedPrompt] = useState<Prompt | null>(null);
-    const [activeCategory, setActiveCategory] = useState<string>('All');
+    const [activeCategory, setActiveCategory] = useState<string>('すべて');
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [generatedContent, setGeneratedContent] = useState<string>('');
     const [copyStatus, setCopyStatus] = useState<Record<number, string>>({});
 
     const ai = useMemo(() => new GoogleGenAI({ apiKey: process.env.API_KEY as string }), []);
 
-    const categories = ['All', ...Array.from(new Set(prompts.map(p => p.category)))];
-    const filteredPrompts = activeCategory === 'All' ? prompts : prompts.filter(p => p.category === activeCategory);
+    const categories = ['すべて', ...Array.from(new Set(prompts.map(p => p.category)))];
+    const filteredPrompts = activeCategory === 'すべて' ? prompts : prompts.filter(p => p.category === activeCategory);
 
     const handleUsePrompt = (prompt: Prompt) => {
         setSelectedPrompt(prompt);
@@ -63,7 +63,7 @@ const App: React.FC = () => {
             setGeneratedContent(response.text);
         } catch (error) {
             console.error('API Error:', error);
-            setGeneratedContent('Sorry, something went wrong. Please check the console for details.');
+            setGeneratedContent('申し訳ありませんが、問題が発生しました。詳細はコンソールを確認してください。');
         } finally {
             setIsLoading(false);
         }
@@ -71,7 +71,7 @@ const App: React.FC = () => {
     
     const handleCopy = (prompt: Prompt) => {
         navigator.clipboard.writeText(prompt.prompt);
-        setCopyStatus({ ...copyStatus, [prompt.id]: 'Copied!' });
+        setCopyStatus({ ...copyStatus, [prompt.id]: 'コピーしました！' });
         setTimeout(() => {
             setCopyStatus({ ...copyStatus, [prompt.id]: '' });
         }, 2000);
@@ -80,20 +80,20 @@ const App: React.FC = () => {
     if (view === 'generator' && selectedPrompt) {
         return (
             <main className="generator-view">
-                <button onClick={handleBackToGallery} className="back-button" aria-label="Back to gallery">
+                <button onClick={handleBackToGallery} className="back-button" aria-label="ギャラリーに戻る">
                     <BackIcon />
-                    <span>Back to Gallery</span>
+                    <span>ギャラリーに戻る</span>
                 </button>
                 <div className="generator-prompt">
                     <h2>{selectedPrompt.title}</h2>
                     <p>{selectedPrompt.prompt}</p>
                 </div>
                 <button onClick={handleGenerate} disabled={isLoading} className="generate-btn">
-                    {isLoading ? 'Generating...' : '✨ Generate'}
+                    {isLoading ? '生成中...' : '✨ 生成する'}
                 </button>
                 <div className="output-container">
                     {isLoading && (
-                        <div className="loading-indicator" aria-label="Loading content">
+                        <div className="loading-indicator" aria-label="コンテンツを読み込み中">
                             <div className="spinner"></div>
                         </div>
                     )}
@@ -110,11 +110,11 @@ const App: React.FC = () => {
     return (
         <>
             <header>
-                <h1>React Prompt Gallery</h1>
-                <p>Discover and experiment with powerful prompts for generative AI.</p>
+                <h1>Reactプロンプトギャラリー</h1>
+                <p>生成AI用の強力なプロンプトを見つけて試してみましょう。</p>
             </header>
             <main>
-                <div className="category-filters" role="tablist" aria-label="Prompt Categories">
+                <div className="category-filters" role="tablist" aria-label="プロンプトカテゴリ">
                     {categories.map(category => (
                         <button
                             key={category}
@@ -136,10 +136,10 @@ const App: React.FC = () => {
                             </div>
                             <p className="prompt-text">{prompt.prompt}</p>
                             <div className="card-actions">
-                                <button onClick={() => handleUsePrompt(prompt)} className="primary-btn">Use Prompt</button>
+                                <button onClick={() => handleUsePrompt(prompt)} className="primary-btn">プロンプトを使用</button>
                                 <button onClick={() => handleCopy(prompt)} className="secondary-btn" aria-live="polite">
                                     <CopyIcon />
-                                    <span>{copyStatus[prompt.id] || 'Copy'}</span>
+                                    <span>{copyStatus[prompt.id] || 'コピー'}</span>
                                 </button>
                             </div>
                         </div>

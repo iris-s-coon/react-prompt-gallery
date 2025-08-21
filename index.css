@@ -9,7 +9,7 @@
   --border-color: #e2e8f0;
   --shadow-color: rgba(0, 0, 0, 0.05);
 
-  --font-family: 'Inter', sans-serif;
+  --font-family: 'Kaisei Tokumin', serif;
   --border-radius: 0.5rem;
   --transition-speed: 0.2s;
 }
@@ -74,6 +74,7 @@ header p {
   cursor: pointer;
   font-weight: 500;
   transition: all var(--transition-speed) ease;
+  font-family: var(--font-family);
 }
 
 .category-filters button:hover {
@@ -157,6 +158,7 @@ header p {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  font-family: var(--font-family);
 }
 
 .card-actions .primary-btn {
@@ -208,6 +210,7 @@ header p {
   font-weight: 500;
   cursor: pointer;
   margin-bottom: 2rem;
+  font-family: var(--font-family);
 }
 
 .back-button:hover {
@@ -258,6 +261,7 @@ header p {
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
+  font-family: var(--font-family);
 }
 
 .generate-btn:hover:not(:disabled) {
