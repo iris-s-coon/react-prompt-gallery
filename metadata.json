@@ -1,0 +1,5 @@
+{
+  "name": "React Prompt Gallery",
+  "description": "A gallery of prompts to use with generative AI, built with React.",
+  "requestFramePermissions": []
+}
